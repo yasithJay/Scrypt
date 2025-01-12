@@ -1,0 +1,1 @@
+This is a note pad project with Angular and NodeJS
