@@ -1,0 +1,35 @@
+<div class="container home">
+  <div class="d-flex">
+    <div class="row w-100">
+    <ng-container *ngFor="let item of noteList">
+      <div class="col col-md-4 mb-3">
+      <div class="noteCard p-3">
+
+          <h4>{{item.title}}</h4>
+          <p>{{item.content}}</p>
+
+          <div class="d-flex justify-content-between">
+            <p class="date">{{item.last_updated_date | date}}</p>
+            <div class="d-flex">
+              <div class="action-btn">
+                <button mat-fab aria-label="Example icon button with a delete icon">
+                  <mat-icon>edit</mat-icon>
+                </button>
+              </div>
+              <div class="action-btn">
+                <button mat-fab color="accent" aria-label="Example icon button with a delete icon">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  </div>
+</div>
+
+<button mat-fab class="home-add-btn">
+  <mat-icon>add</mat-icon>
+</button>
