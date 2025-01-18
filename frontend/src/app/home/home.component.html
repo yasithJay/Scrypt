@@ -1,35 +1,53 @@
 <div class="container home">
   <div class="d-flex">
     <div class="row w-100">
-    <ng-container *ngFor="let item of noteList">
-      <div class="col col-md-4 mb-3">
-      <div class="noteCard p-3">
 
-          <h4>{{item.title}}</h4>
-          <p>{{item.content}}</p>
+    <!-- Cards view  -->
+    <div cdkDropList cdkDropListOrientation="mixed" class="row" (cdkDropListDropped)="drop($event)">
+      @for (item of noteList; track item; let i = $index) {
+      <div class="col col-md-6 mb-3" cdkDrag>
+        <mat-card class="noteCard" appearance="raised">
+          <mat-card-header>
+            <mat-card-title>{{item.title}}</mat-card-title>
+          </mat-card-header>
 
-          <div class="d-flex justify-content-between">
-            <p class="date">{{item.last_updated_date | date}}</p>
-            <div class="d-flex">
-              <div class="action-btn">
-                <button mat-fab aria-label="Example icon button with a delete icon">
-                  <mat-icon>edit</mat-icon>
-                </button>
-              </div>
-              <div class="action-btn">
-                <button mat-fab color="accent" aria-label="Example icon button with a delete icon">
-                  <mat-icon>delete</mat-icon>
-                </button>
+          <mat-divider></mat-divider>
+
+          <mat-card-content>
+            <div class="pt-2">
+              <p>{{item.content}}</p>
+            </div>
+          </mat-card-content>
+
+          <mat-card-footer>
+            <div class="d-flex justify-content-between p-3">
+              <p class="date">{{item.last_updated_date | date}}</p>
+              <div class="d-flex">
+                <div class="action-btn">
+                  <button mat-fab  (click)="onViewNote(i)">
+                    <mat-icon>visibility</mat-icon>
+                  </button>
+                </div>
+                <div class="action-btn">
+                  <button mat-fab (click)="onEditNote(i)" >
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                </div>
+                <div class="action-btn">
+                  <button mat-fab color="accent" >
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
+          </mat-card-footer>
+        </mat-card>
       </div>
-    </ng-container>
+      }
+    </div>
   </div>
   </div>
 </div>
 
-<button mat-fab class="home-add-btn">
-  <mat-icon>add</mat-icon>
-</button>
+
+

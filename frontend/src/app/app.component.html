@@ -1,25 +1,30 @@
-<!-- <div class="w-100 d-flex justify-content-between navigation">
-  <div> </div>
-  <p class="m-0">
-    Scrypt
-  </p>
-  <div>
-    <form [formGroup]="form">
-      <mat-slide-toggle formControlName="toggle" (change)="toggleMode()"><mat-icon class="clr-mode-icon">dark_mode</mat-icon></mat-slide-toggle>
-    </form>
-  </div>
-</div> -->
-<mat-toolbar class="navigation">
-  <div class=" w-100 d-flex justify-content-between">
-    <div> </div>
-    <p class="m-0">Scrypt</p>
-    <div>
-      <form [formGroup]="form">
-        <mat-slide-toggle formControlName="toggle" (change)="toggleMode()"><mat-icon class="clr-mode-icon">dark_mode</mat-icon></mat-slide-toggle>
-      </form>
+
+<div class="main-content">
+  <mat-toolbar class="navigation">
+    <div class=" w-100 d-flex justify-content-between">
+      <div style="width: 48px; height: 48px;">
+        <button *ngIf="!isHomeView" mat-icon-button (click)="onNavigateBack()">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+      </div>
+      <p class="m-0">Scrypt</p>
+      <div>
+        <form [formGroup]="form" style="display: inline-flex;">
+          <mat-icon class="clr-mode-icon">light_mode</mat-icon>
+          <mat-slide-toggle formControlName="toggle" (change)="toggleMode()">
+          </mat-slide-toggle>
+          <mat-icon class="clr-mode-icon">dark_mode</mat-icon>
+        </form>
+      </div>
     </div>
+  </mat-toolbar>
+  <div class="w-100 content">
+    <router-outlet></router-outlet>
   </div>
-</mat-toolbar>
-<div class="w-100 content">
-  <app-home></app-home>
+
+
+    <!-- add BUTTON -->
+  <button *ngIf="isHomeView" mat-fab class="home-add-btn" (click)="onAddNote()">
+    <mat-icon>add</mat-icon>
+  </button>
 </div>
