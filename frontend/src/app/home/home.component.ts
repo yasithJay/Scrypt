@@ -1,32 +1,59 @@
-import { Component } from '@angular/core';
-// import { AddEditComponent } from '../add-edit/add-edit.component';
+import { Component, inject, OnInit } from '@angular/core';
 import { INote } from '../../shared/note.interface';
-import { DatePipe, NgFor } from '@angular/common';
-import {MatButtonModule} from '@angular/material/button';
-import {MatIconModule} from '@angular/material/icon';
+import { DatePipe } from '@angular/common';
+import materialComponents from '../../shared/material-imports';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogViewNoteComponent } from '../popup/dialog-view-note/dialog-view-note.component';
+import notes from '../../shared/notes';
+import { DialogEditNoteComponent } from '../popup/dialog-edit-note/dialog-edit-note.component';
+import {CdkDragDrop, CdkDrag, CdkDropList, moveItemInArray} from '@angular/cdk/drag-drop';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 @Component({
   selector: 'app-home',
-  imports: [NgFor, DatePipe, MatButtonModule, MatIconModule],
+  imports: [
+    DatePipe,
+   ...materialComponents,
+   DragDropModule
+  ],
   standalone: true,
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
+  readonly dialog = inject(MatDialog);
+  constructor (
+  ) {}
+
   noteList:INote[] = [
-    {
-      title: "Note 1",
-      content: "example content",
-      last_updated_date: new Date()
-    },
-    {
-      title: "Note 1",
-      content: "example content",
-      last_updated_date: new Date()
-    },
-    {
-      title: "Note 1",
-      content: "example content",
-      last_updated_date: new Date()
-    }
+    ...notes
   ]
+
+  ngOnInit(): void {
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.noteList, event.previousIndex, event.currentIndex);
+  }
+
+  onViewNote(index: number) {
+    this.dialog.open(DialogViewNoteComponent, {
+      data: this.noteList[index], width: '50vw'
+    })
+
+  }
+
+  onEditNote(index: number) {
+    const editDialog = this.dialog.open(DialogEditNoteComponent, {
+      data: this.noteList[index], width: '80vw'
+    })
+
+
+    editDialog.afterClosed().subscribe(data => {
+      console.log(data)
+    })
+
+  }
+
+  deleteNote(id: number) {}
+
 }

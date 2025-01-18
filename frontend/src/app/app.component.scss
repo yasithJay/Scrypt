@@ -1,13 +1,21 @@
 .navigation {
-  background-color: #EC8A00;
+  align-items: end;
 }
 
 .clr-mode-icon {
   height: 100%;
-    padding-top: 3.5px;
+  margin: 3.5px 3px 0 3px;
 }
 
-.content {
+.main-content {
+  height: 100vh;
   background-color: var(--mat-sys-background);
   color: var(--mat-sys-on-background);
+}
+
+
+.home-add-btn {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
 }
